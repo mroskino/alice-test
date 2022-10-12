@@ -1,0 +1,92 @@
+[
+  {
+    "taskCode" : "A",
+    "duration" : 6,
+    "crew" : {
+      "assignment" : 3
+    },
+    "dependencies" : []
+  },
+  {
+    "taskCode" : "B",
+    "duration" : 6,
+    "crew" : {
+      "assignment" : 3
+    },
+    "dependencies" : []
+  },
+  {
+    "taskCode" : "C",
+    "duration" : 10,
+    "crew" : {
+      "assignment" : 5
+    },
+    "dependencies" : []
+  },
+  {
+    "taskCode" : "D",
+    "duration" : 2,
+    "crew" : {
+      "assignment" : 2
+    },
+    "dependencies" : [ "A" ]
+  },
+  {
+    "taskCode" : "E",
+    "duration" : 2,
+    "crew" : {
+      "assignment" : 2
+    },
+    "dependencies" : [ "B" ]
+  },
+  {
+    "taskCode" : "F",
+    "duration" : 3,
+    "crew" : {
+      "assignment" : 4
+    },
+    "dependencies" : [ "D", "E" ]
+  },
+  {
+    "taskCode" : "G",
+    "duration" : 4,
+    "crew" : {
+      "assignment" : 6
+    },
+    "dependencies" : [ "C" ]
+  },
+  {
+    "taskCode" : "H",
+    "duration" : 4,
+    "crew" : {
+      "assignment" : 6
+    },
+    "dependencies" : [ "F" ]
+  },
+  {
+    "taskCode" : "I",
+    "duration" : 5,
+    "crew" : {
+      "assignment" : 4
+    },
+    "dependencies" : [ "F", "G"]
+  },
+  {
+    "taskCode" : "J",
+    "duration" : 1,
+    "crew" : {
+      "assignment" : 1
+    },
+    "dependencies" : [ "G" ]
+  },
+  {
+    "taskCode" : "K",
+    "duration" : 1,
+    "dependencies" : [ "H", "I"]
+  },
+  {
+    "taskCode" : "L",
+    "duration" : 1,
+    "dependencies" : [ "J" ]
+  }
+]
