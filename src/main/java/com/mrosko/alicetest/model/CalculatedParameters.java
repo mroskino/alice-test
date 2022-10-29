@@ -5,7 +5,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class CalculatedParameteres {
+public class CalculatedParameters {
 
     long time;
     long highestSum;

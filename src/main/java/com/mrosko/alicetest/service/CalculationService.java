@@ -1,17 +1,12 @@
 package com.mrosko.alicetest.service;
 
-import com.mrosko.alicetest.model.CalculatedParameteres;
+import com.mrosko.alicetest.model.CalculatedParameters;
 import com.mrosko.alicetest.model.Task;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,45 +14,38 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CalculationService {
 
+    private findMaxPrice(Set<String> endTasks, List<>) {
 
-    public CalculatedParameteres calculate(List<Task> tasks) {
+    }
+
+    public CalculatedParameters calculate(Map<String, Task> tasks) {
 
         log.info("Total tasks count: {}", tasks.size());
-        log.info("Start tasks count: {}", tasks.stream().filter(task -> task.getDependencies().isEmpty()).count());
-        Set<String> tasksInDependencies = tasks.stream().flatMap(task -> task.getDependencies().stream()).collect(Collectors.toSet());
-        Set<String> endTasks = tasks.stream().map(Task::getTaskCode).filter(taskCode -> !tasksInDependencies.contains(taskCode)).collect(Collectors.toSet());
+        log.info("Start tasks count: {}", tasks.values().stream()
+                .filter(task -> task.getDependencies().isEmpty())
+                .count());
+
+        Set<String> tasksInDependencies = tasks.values().stream()
+                .flatMap(task -> task.getDependencies().stream())
+                .collect(Collectors.toSet());
+
+        Set<Task> endTasks = tasks.values().stream()
+                .filter(task -> !tasksInDependencies.contains(task.getTaskCode()))
+                .collect(Collectors.toSet());
+
         log.info("End tasks count: {}", endTasks.size());
 
-        Set<String> workingTasks = new HashSet<>(tasks.size());
+        long max = 0;
 
-        for (Task task : tasks) {
-            WorkingTask.builder()
-                    .taskId(task.getTaskCode())
-                    .previousTasks(task.getDependencies())
-                    .build();
+        endTasks.stream()
+                .flatMap(endTask -> endTask.getDependencies().stream())
+                .map(dependency -> tasks.get(dependency))
+                .
 
-
-        }
-
-
-
-
-
-        return CalculatedParameteres.builder()
+        return CalculatedParameters.builder()
                 .highestSum(12)
                 .time(20)
                 .build();
     }
-
-
-    @Data
-    @Builder
-    @EqualsAndHashCode(of = "taskId")
-    private static class WorkingTask {
-        String taskId;
-        List<String> nextTasks;
-        List<String> previousTasks;
-    }
-
 
 }

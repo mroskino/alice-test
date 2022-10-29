@@ -11,7 +11,8 @@ public class TaskMapper {
 
     public static Task mapToTask(TaskRequest request) {
         return Task.builder()
-                .taskCode(request.getTaskCode()).crewMembersCount(isNull(request.getCrew())
+                .taskCode(request.getTaskCode())
+                .crewMembersCount(isNull(request.getCrew())
                         ? 0
                         : request.getCrew().getAssignment())
                 .duration(request.getDuration())
