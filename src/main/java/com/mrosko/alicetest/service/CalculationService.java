@@ -5,7 +5,6 @@ import com.mrosko.alicetest.model.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,10 +12,6 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class CalculationService {
-
-    private findMaxPrice(Set<String> endTasks, List<>) {
-
-    }
 
     public CalculatedParameters calculate(Map<String, Task> tasks) {
 
@@ -33,14 +28,13 @@ public class CalculationService {
                 .filter(task -> !tasksInDependencies.contains(task.getTaskCode()))
                 .collect(Collectors.toSet());
 
+        endTasks.forEach(task -> {
+            task.setMaxDurationCost(task.getDuration());
+        });
+
         log.info("End tasks count: {}", endTasks.size());
 
-        long max = 0;
-
-        endTasks.stream()
-                .flatMap(endTask -> endTask.getDependencies().stream())
-                .map(dependency -> tasks.get(dependency))
-                .
+        findMaxPrice(tasks, endTasks);
 
         return CalculatedParameters.builder()
                 .highestSum(12)
@@ -48,4 +42,9 @@ public class CalculationService {
                 .build();
     }
 
+    private void findMaxPrice(Map<String, Task> tasks, Set<Task> tasksToExpand) {
+        for (Task task : tasksToExpand) {
+            log.info("Cost: " + tasks.get(task.getTaskCode()).getMaxDurationCost());
+        }
+    }
 }
